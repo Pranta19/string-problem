@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+    
+    vector<int> lower(26, 0);
+    vector<int> upper(26, 0);
+    
+    // Count frequency of each lowercase and uppercase letter
+    for (char c : s) {
+        if (c >= 'a' && c <= 'z') {
+            lower[c - 'a']++;
+        } else if (c >= 'A' && c <= 'Z') {
+            upper[c - 'A']++;
+        }
+    }
+
+    int count = 0;
+    bool odd = false;
+
+    // Calculate maximum length of a palindrome using lowercase letters
+    for (int i = 0; i < 26; i++) {
+        if (lower[i] % 2 == 0) {
+            count += lower[i];
+        } else {
+            count += lower[i] - 1;
+            odd = true;
+        }
+    }
+
+    // Calculate maximum length of a palindrome using uppercase letters
+    for (int i = 0; i < 26; i++) {
+        if (upper[i] % 2 == 0) {
+            count += upper[i];
+        } else {
+            count += upper[i] - 1;
+            odd = true;
+        }
+    }
+
+    // If there was at least one character with an odd frequency, add 1 to count
+    if (odd) {
+        count++;
+    }
+
+    cout << count << endl;
+    return 0;
+}
